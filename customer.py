@@ -25,8 +25,8 @@ class Customer:
         """Get the customer's name."""
         return self.name
 
-    def get_total_amount(self):
-        """Calculate the total amount for all rentals."""
+    def get_total_charge(self):
+        """Calculate the total charge for all rentals."""
         total_amount = 0
         for rental in self.rentals:
             total_amount += rental.get_price()
@@ -64,7 +64,7 @@ class Customer:
         # footer: summary of charges
         statement += "\n"
         statement += "{:40s}  {:6s} {:6.2f}\n".format(
-                       "Total Charges", "", self.get_total_amount())
+                       "Total Charges", "", self.get_total_charge())
         statement += "Frequent Renter Points earned: {}\n".format(self.get_total_rental_points())
 
         return statement

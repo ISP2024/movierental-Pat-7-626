@@ -44,7 +44,7 @@ class CustomerTest(unittest.TestCase):
         # Compute the expected total amount
         expected_total = self.r1.get_price() + self.r2.get_price() + self.r3.get_price()
         # Assert that the total amount is correct
-        self.assertEqual(self.c2.get_total_amount(), expected_total)
+        self.assertEqual(self.c2.get_total_charge(), expected_total)
 
     def test_get_total_rental_points(self):
         """Test to check whether get_total_rental_points works correctly."""
