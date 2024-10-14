@@ -19,30 +19,38 @@ class CustomerTest(unittest.TestCase):
         self.regular_movie = Movie("CitizenFour", Movie.REGULAR)
         self.childrens_movie = Movie("Frozen", Movie.CHILDRENS)
 
+        # Create some movie instances
+        self.m1 = Movie("Air", Movie.REGULAR)
+        self.m2 = Movie("Toy Story", Movie.CHILDRENS)
+        self.m3 = Movie("Avengers", Movie.NEW_RELEASE)
+        # Create rental instances
+        self.r1 = Rental(self.m1, 3)  # 3 days of regular movie
+        self.r2 = Rental(self.m2, 4)  # 4 days of children's movie
+        self.r3 = Rental(self.m3, 2)  # 2 days of new release movie
+        # Create a customer and add rentals
+        self.customer = Customer("John Doe")
+        self.customer.add_rental(self.r1)
+        self.customer.add_rental(self.r2)
+        self.customer.add_rental(self.r3)
+
     @unittest.skip("No convenient way to test")
     def test_billing():
         # no convenient way to test billing since its buried in the statement() method.
         pass
 
     def test_get_total_amount(self):
-        """Test to check whether get_price works correctly."""
-        # Create some movie instances
-        m1 = Movie("Air", Movie.REGULAR)
-        m2 = Movie("Toy Story", Movie.CHILDRENS)
-        m3 = Movie("Avengers", Movie.NEW_RELEASE)
-        # Create rental instances
-        r1 = Rental(m1, 3)  # 3 days of regular movie
-        r2 = Rental(m2, 4)  # 4 days of children's movie
-        r3 = Rental(m3, 2)  # 2 days of new release movie
-        # Create a customer and add rentals
-        customer = Customer("John Doe")
-        customer.add_rental(r1)
-        customer.add_rental(r2)
-        customer.add_rental(r3)
+        """Test to check whether get_total_amount works correctly."""
         # Compute the expected total amount
-        expected_total = r1.get_price() + r2.get_price() + r3.get_price()
+        expected_total = self.r1.get_price() + self.r2.get_price() + self.r3.get_price()
         # Assert that the total amount is correct
-        self.assertEqual(customer.get_total_amount(), expected_total)
+        self.assertEqual(self.customer.get_total_amount(), expected_total)
+
+    def test_get_total_rental_points(self):
+        """Test to check whether get_total_rental_points works correctly."""
+        # Compute the expected total rental points
+        expected_total = self.r1.get_rental_points() + self.r2.get_rental_points() + self.r3.get_rental_points()
+        # Assert that the total amount is correct
+        self.assertEqual(self.customer.get_total_rental_points(), expected_total)
 
     def test_statement(self):
         stmt = self.c.statement()

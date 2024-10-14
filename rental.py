@@ -57,3 +57,7 @@ class Rental:
             # New release earns 1 point per day rented
             return self.get_days_rented()
         return 1
+
+    def get_rental_points(self):
+        """Calculate rental points based on the rental type."""
+        return self.rental_points()
