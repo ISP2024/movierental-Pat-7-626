@@ -25,33 +25,6 @@ class Customer:
         """Get the customer's name."""
         return self.name
 
-    @staticmethod
-    def get_price(rental: Rental):
-        """Calculate the price of a rental."""
-        amount = 0
-        price_code = rental.get_movie().get_price_code()
-        days_rented = rental.get_days_rented()
-
-        if price_code == Movie.REGULAR:
-            # Two days for $2, additional days 1.50 per day.
-            amount = 2.0
-            if days_rented > 2:
-                amount += 1.5 * (days_rented - 2)
-        elif price_code == Movie.CHILDRENS:
-            # Three days for $1.50, additional days 1.50 per day.
-            amount = 1.5
-            if days_rented > 3:
-                amount += 1.5 * (days_rented - 3)
-        elif price_code == Movie.NEW_RELEASE:
-            # Straight $3 per day charge
-            amount = 3 * days_rented
-        else:
-            log = logging.getLogger()
-            log.error(
-                f"Movie {rental.get_movie()} has unrecognized priceCode {price_code}")
-
-        return amount
-
     def statement(self):
         """Create a statement of rentals for the current period.
 
@@ -71,7 +44,7 @@ class Customer:
         
         for rental in self.rentals:
             # compute rental change
-            amount = self.get_price(rental)
+            amount = rental.get_price()
             # compute the frequent renter points based on movie price code
             if rental.get_movie().get_price_code() == Movie.NEW_RELEASE:
                 # New release earns 1 point per day rented
