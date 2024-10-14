@@ -15,8 +15,7 @@ class Rental:
 
     def __init__(self, movie, days_rented):
         """Initialize a new movie rental object for
-    	   a movie with known rental period (daysRented).
-    	"""
+        a movie with known rental period (daysRented)."""
         self.movie = movie
         self.days_rented = days_rented
 
@@ -51,3 +50,10 @@ class Rental:
                 f"Movie {self.get_movie()} has unrecognized priceCode {price_code}")
 
         return amount
+
+    def rental_points(self):
+        """Calculate the frequent renter points for a rental."""
+        if self.get_movie().get_price_code() == Movie.NEW_RELEASE:
+            # New release earns 1 point per day rented
+            return self.get_days_rented()
+        return 1

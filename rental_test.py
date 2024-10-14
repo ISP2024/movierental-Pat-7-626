@@ -23,6 +23,13 @@ class RentalTest(unittest.TestCase):
         rental = Rental(m, 3)
         self.assertEqual(rental.get_price(), 3.5)
 
+    def test_rental_points(self):
+        """Test to check whether rental_points works correctly."""
+        m = Movie("Air", Movie.REGULAR)
+        rental = Rental(m, 2)  # 2 days rented
+        self.assertEqual(rental.rental_points(),
+                         1)  # Regular movie earns 1 point
+
     @unittest.skip("add this test when you refactor rental price")
     def test_rental_price(self):
         rental = Rental(self.new_movie, 1)
