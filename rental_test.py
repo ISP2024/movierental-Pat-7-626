@@ -2,32 +2,34 @@ import unittest
 from customer import Customer
 from rental import Rental
 from movie import Movie
+from price_strategy import *
 
 
 class RentalTest(unittest.TestCase):
 
     def setUp(self):
-        self.new_movie = Movie("Dune: Part Two", Movie.NEW_RELEASE)
-        self.regular_movie = Movie("Air", Movie.REGULAR)
-        self.childrens_movie = Movie("Frozen", Movie.CHILDRENS)
+        self.new_movie = Movie("Dune: Part Two", NewReleasePrice())
+        self.regular_movie = Movie("Air", RegularPrice())
+        self.children_movie = Movie("Frozen", ChildrenPrice())
 
     def test_movie_attributes(self):
         """trivial test to catch refactoring errors or change in API of Movie"""
-        m = Movie("Air", Movie.REGULAR)
+        p = RegularPrice()
+        m = Movie("Air", p)
         self.assertEqual("Air", m.get_title())
-        self.assertEqual(Movie.REGULAR, m.get_price_code())
+        self.assertEqual(p, m.get_price_strategy())
 
     def test_get_price(self):
         """Test to check whether get_price works correctly."""
-        m = Movie("Air", Movie.REGULAR)
+        m = Movie("Air", RegularPrice())
         rental = Rental(m, 3)
         self.assertEqual(rental.get_price(), 3.5)
 
     def test_rental_points(self):
         """Test to check whether rental_points works correctly."""
-        m = Movie("Air", Movie.REGULAR)
+        m = Movie("Air", RegularPrice())
         rental = Rental(m, 2)  # 2 days rented
-        self.assertEqual(rental.rental_points(),
+        self.assertEqual(rental.get_rental_points(),
                          1)  # Regular movie earns 1 point
 
     @unittest.skip("add this test when you refactor rental price")
