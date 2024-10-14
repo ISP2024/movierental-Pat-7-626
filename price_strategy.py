@@ -2,6 +2,15 @@ from abc import ABC, abstractmethod
 
 
 class PriceStrategy(ABC):
+    """Strategy class for price."""
+    _instances = {}
+
+    def __new__(cls, *args, **kwargs):
+        if cls not in cls._instances:
+            cls._instances[cls] = super(PriceStrategy, cls).__new__(cls, *args,
+                                                                    **kwargs)
+        return cls._instances[cls]
+
     @abstractmethod
     def get_price(self, days):
         pass

@@ -35,7 +35,7 @@ class CustomerTest(unittest.TestCase):
         self.c2.add_rental(self.r3)
 
     @unittest.skip("No convenient way to test")
-    def test_billing():
+    def test_billing(self):
         # no convenient way to test billing since its buried in the statement() method.
         pass
 
