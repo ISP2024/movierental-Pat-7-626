@@ -1,38 +1,59 @@
 import re
-import unittest 
+import unittest
 from customer import Customer
 from rental import Rental
 from movie import Movie
 
-class CustomerTest(unittest.TestCase): 
+
+class CustomerTest(unittest.TestCase):
     """ Tests of the Customer class"""
-    
+
     def setUp(self):
-    	"""Test fixture contains:
-    	
-    	c = a customer
+        """Test fixture contains:
+
+		c = a customer
     	movies = list of some movies
     	"""
-    	self.c = Customer("Movie Mogul")
-    	self.new_movie = Movie("Mulan", Movie.NEW_RELEASE)
-    	self.regular_movie = Movie("CitizenFour", Movie.REGULAR)
-    	self.childrens_movie = Movie("Frozen", Movie.CHILDRENS)
-    	
+        self.c = Customer("Movie Mogul")
+        self.new_movie = Movie("Mulan", Movie.NEW_RELEASE)
+        self.regular_movie = Movie("CitizenFour", Movie.REGULAR)
+        self.childrens_movie = Movie("Frozen", Movie.CHILDRENS)
+
     @unittest.skip("No convenient way to test")
     def test_billing():
-    	# no convenient way to test billing since its buried in the statement() method.
-    	pass
-    
+        # no convenient way to test billing since its buried in the statement() method.
+        pass
+
+    def test_get_total_amount(self):
+        """Test to check whether get_price works correctly."""
+        # Create some movie instances
+        m1 = Movie("Air", Movie.REGULAR)
+        m2 = Movie("Toy Story", Movie.CHILDRENS)
+        m3 = Movie("Avengers", Movie.NEW_RELEASE)
+        # Create rental instances
+        r1 = Rental(m1, 3)  # 3 days of regular movie
+        r2 = Rental(m2, 4)  # 4 days of children's movie
+        r3 = Rental(m3, 2)  # 2 days of new release movie
+        # Create a customer and add rentals
+        customer = Customer("John Doe")
+        customer.add_rental(r1)
+        customer.add_rental(r2)
+        customer.add_rental(r3)
+        # Compute the expected total amount
+        expected_total = r1.get_price() + r2.get_price() + r3.get_price()
+        # Assert that the total amount is correct
+        self.assertEqual(customer.get_total_amount(), expected_total)
+
     def test_statement(self):
-    	stmt = self.c.statement()
-    	# get total charges from statement using a regex
-    	pattern = r".*Total [Cc]harges\s+(\d+\.\d\d).*"
-    	matches = re.match(pattern, stmt, flags=re.DOTALL)
-    	self.assertIsNotNone(matches)
-    	self.assertEqual("0.00", matches[1])
-    	# add a rental
-    	self.c.add_rental(Rental(self.new_movie, 4)) # days
-    	stmt = self.c.statement()
-    	matches = re.match(pattern, stmt.replace('\n',''), flags=re.DOTALL)
-    	self.assertIsNotNone(matches)
-    	self.assertEqual("12.00", matches[1])
+        stmt = self.c.statement()
+        # get total charges from statement using a regex
+        pattern = r".*Total [Cc]harges\s+(\d+\.\d\d).*"
+        matches = re.match(pattern, stmt, flags=re.DOTALL)
+        self.assertIsNotNone(matches)
+        self.assertEqual("0.00", matches[1])
+        # add a rental
+        self.c.add_rental(Rental(self.new_movie, 4))  # days
+        stmt = self.c.statement()
+        matches = re.match(pattern, stmt.replace('\n', ''), flags=re.DOTALL)
+        self.assertIsNotNone(matches)
+        self.assertEqual("12.00", matches[1])
