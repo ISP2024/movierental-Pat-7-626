@@ -15,13 +15,13 @@ class CustomerTest(unittest.TestCase):
         c = a customer
         movies = list of some movies
         """
-        self.new_movie1 = Movie("Mulan1")
-        self.regular_movie1 = Movie("CitizenFour1")
-        self.children_movie1 = Movie("Frozen1")
+        self.new_movie1 = Movie(title="Mulan1", year=2010, genre=["Action", "Adventure", "Fantasy"])
+        self.regular_movie1 = Movie(title="CitizenFour1", year=2020, genre=["Action", "Adventure", "Fantasy"])
+        self.children_movie1 = Movie(title="Frozen1", year=2016, genre=["Adventure", "Fantasy"])
 
-        self.new_movie2 = Movie("Mulan2")
-        self.regular_movie2 = Movie("CitizenFour2")
-        self.children_movie2 = Movie("Frozen2")
+        self.new_movie2 = Movie(title="Mulan2", year=2015, genre=["Action", "Adventure", "Fantasy"])
+        self.regular_movie2 = Movie(title="CitizenFour2", year=2022, genre=["Action", "Adventure", "Fantasy"])
+        self.children_movie2 = Movie(title="Frozen2", year=2020, genre=["Adventure", "Fantasy"])
 
         self.r1 = Rental(self.new_movie2, 3, NewReleasePrice())
         self.r2 = Rental(self.regular_movie2, 4, RegularPrice())

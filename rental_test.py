@@ -7,14 +7,13 @@ from pricing import *
 class RentalTest(unittest.TestCase):
 
     def setUp(self):
-        self.new_movie = Movie("Dune: Part Two")
-        self.regular_movie = Movie("Air")
-        self.children_movie = Movie("Frozen")
+        self.new_movie = Movie(title="Dune: Part Two", year=2020, genre=["Action", "Adventure", "Fantasy"])
+        self.regular_movie = Movie(title="Air", year=2002, genre=["Action", "Fantasy"])
+        self.children_movie = Movie(title="Frozen", year=2016, genre=["Adventure", "Fantasy"])
 
     def test_movie_attributes(self):
         """trivial test to catch refactoring errors or change in API of Movie"""
-        m = Movie("Air")
-        self.assertEqual("Air", m.get_title())
+        self.assertEqual("Air (2002)", self.regular_movie.get_title())
 
     def test_get_price(self):
         """Test to check whether get_price works correctly."""
