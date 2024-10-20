@@ -7,7 +7,7 @@ class TestPriceCodeForMovie(unittest.TestCase):
 
     def test_new_release_movie(self):
         """Test NewReleasePrice movie."""
-        movie = Movie(title="Latest Blockbuster", year=2024, genre=["Action"])
+        movie = Movie(title="Latest Blockbuster", year=datetime.now().year, genre=["Action"])
         price_code = get_price_code_for_movie(movie)
         self.assertIsInstance(price_code, NewReleasePrice)
 

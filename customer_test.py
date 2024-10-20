@@ -2,7 +2,6 @@ import re
 import unittest
 from customer import Customer
 from rental import Rental
-from movie import Movie
 from pricing import *
 
 
@@ -15,17 +14,17 @@ class CustomerTest(unittest.TestCase):
         c = a customer
         movies = list of some movies
         """
-        self.new_movie1 = Movie(title="Mulan1", year=2010, genre=["Action", "Adventure", "Fantasy"])
-        self.regular_movie1 = Movie(title="CitizenFour1", year=2020, genre=["Action", "Adventure", "Fantasy"])
-        self.children_movie1 = Movie(title="Frozen1", year=2016, genre=["Adventure", "Fantasy"])
+        self.new_movie1 = Movie(title="Latest Blockbuster", year=datetime.now().year, genre=["Action"])
+        self.regular_movie1 = Movie(title="Classic Film", year=1995, genre=["Drama"])
+        self.children_movie1 = Movie(title="Children's Adventure", year=2020, genre=["Children"])
 
-        self.new_movie2 = Movie(title="Mulan2", year=2015, genre=["Action", "Adventure", "Fantasy"])
-        self.regular_movie2 = Movie(title="CitizenFour2", year=2022, genre=["Action", "Adventure", "Fantasy"])
-        self.children_movie2 = Movie(title="Frozen2", year=2020, genre=["Adventure", "Fantasy"])
+        self.new_movie2 = Movie(title="Latest Blockbuster", year=datetime.now().year, genre=["Action"])
+        self.regular_movie2 = Movie(title="Classic Film", year=1995, genre=["Drama"])
+        self.children_movie2 = Movie(title="Children's Adventure", year=2020, genre=["Children"])
 
-        self.r1 = Rental(self.new_movie2, 3, NewReleasePrice())
-        self.r2 = Rental(self.regular_movie2, 4, RegularPrice())
-        self.r3 = Rental(self.children_movie2, 2, ChildrenPrice())
+        self.r1 = Rental(self.new_movie2, 3)
+        self.r2 = Rental(self.regular_movie2, 4)
+        self.r3 = Rental(self.children_movie2, 2)
 
         self.c1 = Customer("Movie Mogul")
         self.c2 = Customer("John Doe")
@@ -61,7 +60,7 @@ class CustomerTest(unittest.TestCase):
         self.assertIsNotNone(matches)
         self.assertEqual("0.00", matches[1])
         # add a rental
-        self.c1.add_rental(Rental(self.new_movie1, 4, NewReleasePrice()))  # days
+        self.c1.add_rental(Rental(self.new_movie1, 4))  # days
         stmt = self.c1.statement()
         matches = re.match(pattern, stmt.replace('\n', ''), flags=re.DOTALL)
         self.assertIsNotNone(matches)
