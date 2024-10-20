@@ -18,3 +18,11 @@ Before and after each refactoring you should **run the unit tests**.
 
 See [Resources](https://cpske.github.io/ISP/assignment/movierental/movierental-part1#resources) in the assignment description.
 
+## 2. Move price_code Attribute
+
+2.1 what refactoring signs (code smells) suggest this refactoring?
+- Inappropriate Intimacy because the class uses the internal fields and methods of another class.
+- Feature Envy because the method accesses the data of another object more than its own data.
+
+2.2 what design principle suggests this refactoring? Why?
+- Single Responsibility Principle (SRP) because we changed 2 reasons for the class to change (movie data and rental data) into one reason (movie data).

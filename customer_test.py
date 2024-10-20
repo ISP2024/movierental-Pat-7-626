@@ -15,17 +15,17 @@ class CustomerTest(unittest.TestCase):
         c = a customer
         movies = list of some movies
         """
-        self.new_movie1 = Movie("Mulan1", NewReleasePrice())
-        self.regular_movie1 = Movie("CitizenFour1", RegularPrice())
-        self.children_movie1 = Movie("Frozen1", ChildrenPrice())
+        self.new_movie1 = Movie("Mulan1")
+        self.regular_movie1 = Movie("CitizenFour1")
+        self.children_movie1 = Movie("Frozen1")
 
-        self.new_movie2 = Movie("Mulan2", NewReleasePrice())
-        self.regular_movie2 = Movie("CitizenFour2", RegularPrice())
-        self.children_movie2 = Movie("Frozen2", ChildrenPrice())
+        self.new_movie2 = Movie("Mulan2")
+        self.regular_movie2 = Movie("CitizenFour2")
+        self.children_movie2 = Movie("Frozen2")
 
-        self.r1 = Rental(self.new_movie2, 3)
-        self.r2 = Rental(self.regular_movie2, 4)
-        self.r3 = Rental(self.children_movie2, 2)
+        self.r1 = Rental(self.new_movie2, 3, NewReleasePrice())
+        self.r2 = Rental(self.regular_movie2, 4, RegularPrice())
+        self.r3 = Rental(self.children_movie2, 2, ChildrenPrice())
 
         self.c1 = Customer("Movie Mogul")
         self.c2 = Customer("John Doe")
@@ -61,7 +61,7 @@ class CustomerTest(unittest.TestCase):
         self.assertIsNotNone(matches)
         self.assertEqual("0.00", matches[1])
         # add a rental
-        self.c1.add_rental(Rental(self.new_movie1, 4))  # days
+        self.c1.add_rental(Rental(self.new_movie1, 4, NewReleasePrice()))  # days
         stmt = self.c1.statement()
         matches = re.match(pattern, stmt.replace('\n', ''), flags=re.DOTALL)
         self.assertIsNotNone(matches)
