@@ -3,7 +3,7 @@ import unittest
 from customer import Customer
 from rental import Rental
 from movie import Movie
-from price_strategy import *
+from pricing import *
 
 
 class CustomerTest(unittest.TestCase):

@@ -1,5 +1,5 @@
 import logging
-from price_strategy import PriceStrategy
+from pricing import PriceStrategy
 
 
 class Movie:

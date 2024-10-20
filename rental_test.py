@@ -1,7 +1,7 @@
 import unittest
 from rental import Rental
 from movie import Movie
-from price_strategy import *
+from pricing import *
 
 
 class RentalTest(unittest.TestCase):

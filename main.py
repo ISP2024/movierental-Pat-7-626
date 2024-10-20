@@ -4,7 +4,7 @@
 from movie import Movie
 from rental import Rental
 from customer import Customer
-from price_strategy import *
+from pricing import *
 
 
 def make_movies():
